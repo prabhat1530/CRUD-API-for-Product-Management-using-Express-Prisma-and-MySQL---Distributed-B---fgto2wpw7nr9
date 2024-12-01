@@ -1,6 +1,6 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
-const authMiddleware = require("./authMiddleware");
+const authMiddleware = require("./middleware/authMiddleware");
 
 const prisma = new PrismaClient();
 const app = express();
@@ -55,7 +55,7 @@ app.put("/api/products/put/:id", async (req, res) => {
   }
 });
 
-// Partially Update a Product
+
 app.patch("/api/products/patch/:id", async (req, res) => {
   const { id } = req.params;
   const data = req.body;
@@ -71,7 +71,7 @@ app.patch("/api/products/patch/:id", async (req, res) => {
   }
 });
 
-// Delete a Product
+
 app.delete("/api/products/delete/:id", async (req, res) => {
   const { id } = req.params;
 
