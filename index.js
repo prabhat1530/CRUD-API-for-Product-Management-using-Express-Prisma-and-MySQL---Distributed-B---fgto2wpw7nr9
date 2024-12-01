@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(authMiddleware);
 
-// Create a New Product
+
 app.post("/api/products/create", async (req, res) => {
   const { name, stock, price } = req.body;
   if (!name || stock == null || price == null) {
@@ -20,13 +20,12 @@ app.post("/api/products/create", async (req, res) => {
   res.status(201).json(product);
 });
 
-// Retrieve All Products
+
 app.get("/api/products/get", async (req, res) => {
   const products = await prisma.product.findMany();
   res.status(200).json(products);
 });
 
-// Retrieve Product by ID
 app.get("/api/products/getById/:id", async (req, res) => {
   const { id } = req.params;
 
