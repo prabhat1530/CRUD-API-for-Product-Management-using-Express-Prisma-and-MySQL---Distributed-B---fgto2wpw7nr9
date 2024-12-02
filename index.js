@@ -2,15 +2,16 @@ const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const authMiddleware = require("./middleware/authMiddleware");
 
+
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(authMiddleware);
 
 
-app.post("/api/products/create", async (req, res) => {
+
+app.post("/api/products/create", authMiddleware, async (req, res) => {
   const { name, stock, price } = req.body;
   if (!name || stock == null || price == null) {
     return res.status(400).json({ error: "All fields required" });
@@ -21,12 +22,12 @@ app.post("/api/products/create", async (req, res) => {
 });
 
 
-app.get("/api/products/get", async (req, res) => {
+app.get("/api/products/get", authMiddleware, async (req, res) => {
   const products = await prisma.product.findMany();
   res.status(200).json(products);
 });
 
-app.get("/api/products/getById/:id", async (req, res) => {
+app.get("/api/products/getById/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
 
   const product = await prisma.product.findUnique({ where: { id: parseInt(id) } });
@@ -36,7 +37,7 @@ app.get("/api/products/getById/:id", async (req, res) => {
 });
 
 
-app.put("/api/products/put/:id", async (req, res) => {
+app.put("/api/products/put/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const { name, stock, price } = req.body;
 
@@ -56,7 +57,7 @@ app.put("/api/products/put/:id", async (req, res) => {
 });
 
 
-app.patch("/api/products/patch/:id", async (req, res) => {
+app.patch("/api/products/patch/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const data = req.body;
 
@@ -72,7 +73,7 @@ app.patch("/api/products/patch/:id", async (req, res) => {
 });
 
 
-app.delete("/api/products/delete/:id", async (req, res) => {
+app.delete("/api/products/delete/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
 
   try {
