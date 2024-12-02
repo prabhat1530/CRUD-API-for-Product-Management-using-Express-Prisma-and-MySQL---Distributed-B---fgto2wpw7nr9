@@ -4,11 +4,11 @@ const authMiddleware = (req, res, next) => {
   const apiauthkey = req.headers.apiauthkey;
 
   if (!apiauthkey) {
-    return res.status(401).json({ message: "Access denied, apiauthkey is missing" });
+    return res.status(403).json({ message: "Access denied, apiauthkey is missing" });
   }
 
   if (apiauthkey !== validKey) {
-    return res.status(401).json({ message: "Failed to authenticate apiauthkey" });
+    return res.status(403).json({ message: "Failed to authenticate apiauthkey" });
   }
 
   next();

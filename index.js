@@ -1,6 +1,9 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const authMiddleware = require("./middleware/authMiddleware");
+const productRoutes = require("./routes/productRoutes");
+app.use("/api/products", productRoutes);
+
 
 const prisma = new PrismaClient();
 const app = express();
@@ -35,7 +38,7 @@ app.get("/api/products/getById/:id", async (req, res) => {
   res.status(200).json(product);
 });
 
-// Update a Product (Full Update)
+
 app.put("/api/products/put/:id", async (req, res) => {
   const { id } = req.params;
   const { name, stock, price } = req.body;
