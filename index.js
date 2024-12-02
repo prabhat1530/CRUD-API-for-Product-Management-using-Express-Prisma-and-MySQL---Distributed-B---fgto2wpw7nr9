@@ -1,9 +1,6 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const authMiddleware = require("./middleware/authMiddleware");
-const productRoutes = require("./routes/productRoutes");
-app.use("/api/products", productRoutes);
-
 
 const prisma = new PrismaClient();
 const app = express();
