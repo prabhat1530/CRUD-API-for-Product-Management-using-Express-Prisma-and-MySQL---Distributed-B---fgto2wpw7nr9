@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {prisma} = require('../db/config')
+const {prisma} = require('../db/config');
 router.post('/create', async(req,res)=>{
   const {name,stock,price} = req.body
   if(!name || !stock || !price){
