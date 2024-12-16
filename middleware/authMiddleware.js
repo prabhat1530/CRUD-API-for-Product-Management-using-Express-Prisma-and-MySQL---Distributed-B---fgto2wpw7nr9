@@ -2,15 +2,15 @@
 // API_AUTH_KEY = '8a60348b-d4a4-564a-9b45-aab518adb7f4'
 const validateapikey = (req,res,next) => {
   
-  const {api_auth_key} = req.headers;
-  if (!api_auth_key){
+  const {apiauthkey} = req.headers;
+  if (!apiauthkey){
     return res.status(401).json({
-      "message": "Access denied, API_AUTH_KEY is missing"
+      "message": "Access denied, apiauthkey is missing"
    })
   }
-  if (api_auth_key !== process.env.API_AUTH_KEY){
+  if (apiauthkey !== process.env.apiauthkey){
     return res.status(401).json({
-      "message": "Failed to authenticate API_AUTH_KEY"
+      "message": "Failed to authenticate apiauthkey"
     })
   }
   next()
